@@ -17,8 +17,21 @@ usage () {
 }
 
 xtmpl_install () {
+    if [ -f /bin/xtmpl ]; then
+        echo "Installed xtmpl detected."
+        read -p "Replace? (y/N)" yn
+        case "$yn" in
+            y|Y ) rm -rf /bin/xtmpl ;;
+            * )
+                echo "Installation Canceled!"
+                exit 0
+                ;;
+        esac
+    fi
     cp $0 /bin/xtmpl
     chmod +x /bin/xtmpl
+    echo "Installations success!"
+    exit 0
 }
 
 check_template () {
